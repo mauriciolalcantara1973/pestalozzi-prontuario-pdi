@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="card shadow-sm p-4 mb-4">
+    <h3 class="fw-bold mb-3">Linha do Tempo Interdisciplinar (RF03)</h3>
+    <p class="text-muted">Assistido: <strong>Lucas Gabriel dos Santos</strong> (Matrícula: PST-2024-0102)</p>
+    <ul class="list-group">
+        {% for item in timeline %}
+        <li class="list-group-item p-3 mb-2 border rounded">
+            <div class="d-flex justify-content-between align-items-center mb-1">
+                <span class="badge bg-primary fs-6">{{ item.especialidade }}</span>
+                <span class="text-muted small">{{ item.data }} - Prof. Responsável: {{ item.prof }}</span>
+            </div>
+            <p class="mb-1 fw-bold text-dark">Meta PDI: {{ item.meta }} | Status: <span class="badge bg-success">{{ item.frequencia }}</span></p>
+            <p class="mb-0 text-secondary">{{ item.texto }}</p>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}
