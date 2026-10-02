@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="card shadow-sm p-4 mb-4">
+    <h3 class="fw-bold mb-3">Registro de Evolução Clínica e PDI (RF02)</h3>
+    {% if sucesso %}
+    <div class="alert alert-success fw-bold">Evolução registrada e persistida com sucesso!</div>
+    {% endif %}
+    <div class="alert alert-info border-start border-4 border-info">
+        <strong>Última Conduta Registrada:</strong><br>{{ ultima_conduta }}
+    </div>
+    <form method="POST" id="formEvolucao">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label class="form-label fw-bold">Controle de Frequência:</label>
+            <select name="frequencia" class="form-select touch-target" required>
+                <option value="Presente">Presente</option>
+                <option value="Falta Justificada">Falta Justificada</option>
+                <option value="Falta sem Justificativa">Falta sem Justificativa</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label class="form-label fw-bold">Metas do PDI Trabalhadas:</label>
+            <div class="form-check"><input class="form-check-input" type="checkbox" checked id="m1"><label class="form-check-label" for="m1">Treino de mobilidade / marcha</label></div>
+            <div class="form-check"><input class="form-check-input" type="checkbox" id="m2"><label class="form-check-label" for="m2">Comunicação funcional e autonomia</label></div>
+        </div>
+        <div class="mb-3">
+            <label class="form-label fw-bold">Descrição da Evolução do Atendimento:</label>
+            <textarea class="form-control" rows="4" placeholder="Descreva os procedimentos e resposta terapêutica do assistido..." required></textarea>
+        </div>
+        <button type="button" class="btn btn-primary touch-target w-100 fw-bold" data-bs-toggle="modal" data-bs-target="#confirmModal">
+            Salvar Evolução Clínica
+        </button>
+    </form>
+</div>
+
+<!-- Modal de Confirmação Anti-toque acidental -->
+<div class="modal fade" id="confirmModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header"><h5 class="modal-title fw-bold">Confirmar Envio</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
+      <div class="modal-body">Deseja realmente consolidar este registro clínico no prontuário?</div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary touch-target" data-bs-dismiss="modal">Revisar</button>
+        <button type="button" class="btn btn-success touch-target" onclick="document.getElementById('formEvolucao').submit();">Confirmar Envio</button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
